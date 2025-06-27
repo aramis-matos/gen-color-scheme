@@ -1,0 +1,26 @@
+window.__MONITOR__ {
+  background-color: @bgcolor__MONITOR__;
+  border-bottom: 2px solid @color__MONITOR__;
+  border-left: 2px solid @color__MONITOR__;
+  border-right: 2px solid @color__MONITOR__;
+}
+
+window.__MONITOR__ * {
+  color: @color__MONITOR__;
+}
+
+window.__MONITOR__ #pulseaudio {
+  border-right: 2px solid @color__MONITOR__;
+}
+
+window.__MONITOR__ #clock {
+  border-right: 2px solid @color__MONITOR__;
+} 
+
+window.__MONITOR__ #pulseaudio {
+  border-right: 2px solid @color__MONITOR__;
+}
+
+window.__MONITOR__ #clock {
+  border-right: 2px solid @color__MONITOR__;
+}
