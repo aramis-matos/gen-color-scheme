@@ -18,4 +18,8 @@ buildGoApplication {
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;
+  postInstall = ''
+    cp -r $src/templates $out/bin/
+    ls $out/bin
+  '';
 }

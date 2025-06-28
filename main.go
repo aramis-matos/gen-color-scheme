@@ -10,7 +10,9 @@ import (
 
 func main() {
 
-	oldWall, err := os.ReadFile("wallpapers.json")
+	path := filltemplates.GetWaybarPath()
+
+	oldWall, err := os.ReadFile(path + "wallpapers.json")
 
 	images := gen_color_scheme.GetJsonFromWaytrogen()
 
@@ -42,8 +44,6 @@ func main() {
 
 	styleSheet := strings.Join(filledComponents, "\n\n")
 
-	path := filltemplates.GetWaybarPath()
-
 	err = os.WriteFile(path+"colors.css", []byte(defines), 0644)
 
 	if err != nil {
@@ -56,7 +56,7 @@ func main() {
 		panic("could not write style.css")
 	}
 
-	err = os.WriteFile("wallpapers.json", currWall, 0644)
+	err = os.WriteFile(path+"wallpapers.json", currWall, 0644)
 
 	if err != nil {
 		panic("could not write wallpapers.json")
