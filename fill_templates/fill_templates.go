@@ -20,7 +20,7 @@ func (wallColors *WallpaperColors) GetColorStr() string {
 }
 
 func (wallColors *WallpaperColors) FillInTemplate() string {
-	file, err := os.ReadFile("./templates/monitor_template.css")
+	file, err := os.ReadFile("../templates/monitor_template.css")
 
 	if err != nil {
 		panic("could not find monitor template")
