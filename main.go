@@ -9,6 +9,9 @@ import (
 )
 
 func main() {
+
+	exePath := filltemplates.GetExecPath()
+
 	path := filltemplates.GetWaybarPath()
 
 	oldWall, err := os.ReadFile(path + "wallpapers.json")
@@ -33,7 +36,7 @@ func main() {
 	defines := strings.Join(colorDefinitions, "\n")
 	filledTemplates := strings.Join(templates, "\n")
 
-	baseTemplate, err := os.ReadFile("./templates/base.css")
+	baseTemplate, err := os.ReadFile(exePath + "/templates/base.css")
 
 	if err != nil {
 		panic("could not load base template")

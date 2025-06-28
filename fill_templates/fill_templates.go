@@ -4,7 +4,7 @@ import (
 	"fmt"
 	gen_color_scheme "gen-color-scheme/get_colors"
 	"os"
-	// "os/exec"
+	"path/filepath"
 	"regexp"
 )
 
@@ -21,10 +21,7 @@ func (wallColors *WallpaperColors) GetColorStr() string {
 }
 
 func (wallColors *WallpaperColors) FillInTemplate() string {
-	// cmd := exec.Command("echo $PWD")
-	// stdOut, _ := cmd.Output()
-	// fmt.Println(string(stdOut))
-	file, err := os.ReadFile("./templates/monitor_template.css")
+	file, err := os.ReadFile(GetExecPath() + "/templates/monitor_template.css")
 
 	if err != nil {
 		panic("could not find monitor template")
@@ -37,3 +34,12 @@ func (wallColors *WallpaperColors) FillInTemplate() string {
 }
 
 func GetWaybarPath() string { return fmt.Sprintf(`/home/%v/.config/waybar/`, os.Getenv("USER")) }
+
+func GetExecPath() string {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	return exPath
+}

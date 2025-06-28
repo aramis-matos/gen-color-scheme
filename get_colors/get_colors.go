@@ -35,7 +35,6 @@ func GetImageColor(wAndM WallpaperAndMonitor) RGBA {
 	_, err := cmd.Output()
 
 	if err != nil {
-		fmt.Println(tempFileName)
 		panic(err)
 	}
 	tempFile, err := os.Open(tempFileName)
