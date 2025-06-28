@@ -6,9 +6,15 @@ import (
 	gen_color_scheme "gen-color-scheme/get_colors"
 	"os"
 	"strings"
+	"fmt"
+	"os/exec"
 )
 
 func main() {
+
+	cmd := exec.Command("realpath",".")
+	stdOut, _ := cmd.Output()
+	fmt.Println(string(stdOut))
 
 	path := filltemplates.GetWaybarPath()
 

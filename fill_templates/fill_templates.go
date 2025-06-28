@@ -4,6 +4,7 @@ import (
 	"fmt"
 	gen_color_scheme "gen-color-scheme/get_colors"
 	"os"
+	// "os/exec"
 	"regexp"
 )
 
@@ -20,7 +21,10 @@ func (wallColors *WallpaperColors) GetColorStr() string {
 }
 
 func (wallColors *WallpaperColors) FillInTemplate() string {
-	file, err := os.ReadFile("../templates/monitor_template.css")
+	// cmd := exec.Command("echo $PWD")
+	// stdOut, _ := cmd.Output()
+	// fmt.Println(string(stdOut))
+	file, err := os.ReadFile("./templates/monitor_template.css")
 
 	if err != nil {
 		panic("could not find monitor template")
