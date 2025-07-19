@@ -12,9 +12,15 @@ type RGBA struct {
 	a float32
 }
 
+type Changer struct {
+	Swww     string `json:"swww"`
+	Mpvpaper string `json:"mpvpaper"`
+}
+
 type WallpaperAndMonitor struct {
-	Monitor string `json:"monitor"`
-	Path    string `json:"path"`
+	Monitor string  `json:"monitor"`
+	Path    string  `json:"path"`
+	Changer Changer `json:"changer"`
 }
 
 type FetcherFn func(chan uint64, func(imgData *image.Image, x, y int) (val, alpha uint32))

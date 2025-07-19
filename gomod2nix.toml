@@ -1,3 +1,6 @@
-schema = 1
+schema = 3
 
 [mod]
+  [mod."github.com/b4b4r07/go-pipe"]
+    version = "v0.0.0-20191010045404-84b446f57366"
+    hash = "sha256-8y11i7R84t+/r7ASgLjZBT/YU6vBA1mvurFDWmoAxwE="

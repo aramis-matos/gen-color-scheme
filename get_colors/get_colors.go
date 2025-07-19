@@ -1,26 +1,35 @@
 package gen_color_scheme
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"image"
 	"image/jpeg"
+	"io"
 	"math"
 	"os"
 	"os/exec"
 	"strings"
+
+	pipe "github.com/b4b4r07/go-pipe"
 )
 
 func GetJsonFromWaytrogen() *[]WallpaperAndMonitor {
-	cmd := exec.Command("waytrogen", "-l")
-	stdOut, err := cmd.Output()
+	cmd1 := exec.Command("waytrogen", "-l")
+	cmd2 := exec.Command("jq", `.[] | select(.monitor != "All")`)
+	var buff bytes.Buffer
+	err := pipe.Command(&buff, cmd1, cmd2)
+	// cmd := exec.Command("waytrogen", `-l | jq '`)
+	// stdOut, err := cmd2.Output()
 
 	if err != nil {
 		panic("waytrogen is not installed")
 	}
+	io.Copy(os.Stdout, &buff)
 
 	jsonOut := []WallpaperAndMonitor{}
-	json.Unmarshal(stdOut, &jsonOut)
+	json.Unmarshal(buff.Bytes(), &jsonOut)
 
 	return &jsonOut
 }
@@ -31,8 +40,15 @@ func GetImageColor(wAndM WallpaperAndMonitor) RGBA {
 	tempFolder := strings.Trim(string(stdOut[:]), "\n")
 	fileName := strings.Split(wAndM.Path, "/")
 	tempFileName := fmt.Sprintf("%v/%v_temp.jpg", tempFolder, fileName[len(fileName)-1])
-	cmd = exec.Command("ffmpeg", "-ss", "00:00:01.00", "-i", wAndM.Path, "-vf", "scale=100:100:force_original_aspect_ratio=decrease", "-vframes", "1", tempFileName)
-	_, err := cmd.Output()
+	swwwCmd := exec.Command("ffmpeg", "-i", wAndM.Path, "-vf", "scale=100:-1", tempFileName)
+	mpvPaperCmd := exec.Command("ffmpeg", "-ss", "00:00:01.00", "-i", wAndM.Path, "-vf", "scale=100:-1", "-vframes", "1", tempFileName)
+	var ffmpegToExectute *exec.Cmd
+	if len(wAndM.Changer.Swww) > 0 {
+		ffmpegToExectute = swwwCmd
+	} else {
+		ffmpegToExectute = mpvPaperCmd
+	}
+	_, err := ffmpegToExectute.Output()
 
 	if err != nil {
 		panic(err)
