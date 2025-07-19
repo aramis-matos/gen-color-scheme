@@ -13,8 +13,8 @@ type RGBA struct {
 }
 
 type Changer struct {
-	Swww     string `json:"swww"`
-	Mpvpaper string `json:"mpvpaper"`
+	Swww     []byte `json:"swww"`
+	Mpvpaper []byte `json:"mpvpaper"`
 }
 
 type WallpaperAndMonitor struct {

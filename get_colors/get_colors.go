@@ -1,37 +1,35 @@
 package gen_color_scheme
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"image"
 	"image/jpeg"
-	"io"
 	"math"
 	"os"
 	"os/exec"
 	"strings"
-
-	pipe "github.com/b4b4r07/go-pipe"
 )
 
 func GetJsonFromWaytrogen() *[]WallpaperAndMonitor {
-	cmd1 := exec.Command("waytrogen", "-l")
-	cmd2 := exec.Command("jq", `.[] | select(.monitor != "All")`)
-	var buff bytes.Buffer
-	err := pipe.Command(&buff, cmd1, cmd2)
-	// cmd := exec.Command("waytrogen", `-l | jq '`)
-	// stdOut, err := cmd2.Output()
+	cmd := exec.Command("waytrogen", "-l")
+	stdOut, err := cmd.Output()
 
 	if err != nil {
-		panic("waytrogen is not installed")
+		panic("wayland is not installed")
 	}
-	io.Copy(os.Stdout, &buff)
-
 	jsonOut := []WallpaperAndMonitor{}
-	json.Unmarshal(buff.Bytes(), &jsonOut)
+	json.Unmarshal(stdOut, &jsonOut)
 
-	return &jsonOut
+	var wAndM []WallpaperAndMonitor
+
+	for _, val := range jsonOut {
+		if val.Monitor != "All" {
+			wAndM = append(wAndM, val)
+		}
+	}
+
+	return &wAndM
 }
 
 func GetImageColor(wAndM WallpaperAndMonitor) RGBA {
@@ -43,7 +41,7 @@ func GetImageColor(wAndM WallpaperAndMonitor) RGBA {
 	swwwCmd := exec.Command("ffmpeg", "-i", wAndM.Path, "-vf", "scale=100:-1", tempFileName)
 	mpvPaperCmd := exec.Command("ffmpeg", "-ss", "00:00:01.00", "-i", wAndM.Path, "-vf", "scale=100:-1", "-vframes", "1", tempFileName)
 	var ffmpegToExectute *exec.Cmd
-	if len(wAndM.Changer.Swww) > 0 {
+	if wAndM.Changer.Swww != nil {
 		ffmpegToExectute = swwwCmd
 	} else {
 		ffmpegToExectute = mpvPaperCmd
