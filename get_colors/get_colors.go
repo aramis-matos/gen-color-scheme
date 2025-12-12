@@ -8,6 +8,7 @@ import (
 	"math"
 	"os"
 	"os/exec"
+	"slices"
 	"strings"
 )
 
@@ -23,8 +24,10 @@ func GetJsonFromWaytrogen() *[]WallpaperAndMonitor {
 
 	var wAndM []WallpaperAndMonitor
 
+	var invalidMonitors = []string{"", "All"}
+
 	for _, val := range jsonOut {
-		if val.Monitor != "All" {
+		if !(slices.Contains(invalidMonitors, val.Monitor)) {
 			wAndM = append(wAndM, val)
 		}
 	}
