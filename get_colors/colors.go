@@ -26,7 +26,7 @@ type WallpaperAndMonitor struct {
 type FetcherFn func(chan uint64, func(imgData *image.Image, x, y int) (val, alpha uint32))
 
 func (color *RGBA) GetInverse() RGBA {
-	return RGBA{r: 255 - color.r, g: 255 - color.g, b: 255 - color.b, a: 1}
+	return RGBA{r: 255 - color.r, g: 255 - color.g, b: 255 - color.b, a: 0.7}
 }
 
 func (color *RGBA) PrintFormatted(isBg bool, monitor string) string {

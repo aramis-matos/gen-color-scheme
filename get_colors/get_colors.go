@@ -94,7 +94,7 @@ func GetImageColor(wAndM WallpaperAndMonitor) RGBA {
 		return b, a
 	})
 
-	return RGBA{r: <-sum[0] / totalPixels, g: <-sum[1] / totalPixels, b: <-sum[2] / totalPixels, a: 0.7}
+	return RGBA{r: <-sum[0] / totalPixels, g: <-sum[1] / totalPixels, b: <-sum[2] / totalPixels, a: 1}
 }
 
 func getSum(maxX, maxY int, imgData *image.Image) FetcherFn {
