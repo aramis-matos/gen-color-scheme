@@ -13,7 +13,7 @@ type RGBA struct {
 }
 
 type Changer struct {
-	Swww     []byte `json:"swww"`
+	Awww     []byte `json:"awww"`
 	Mpvpaper []byte `json:"mpvpaper"`
 }
 
