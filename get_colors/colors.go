@@ -12,9 +12,17 @@ type RGBA struct {
 	a float32
 }
 
+type MpvpaperOptions struct {
+	PauseMode string `json:"pause_mode"`
+}
+
+type AwwOptions struct {
+	ResizeMode string `json:"resize_mode"`
+}
+
 type Changer struct {
-	Awww     []byte `json:"awww"`
-	Mpvpaper []byte `json:"mpvpaper"`
+	Awww     AwwOptions      `json:"Awww"`
+	Mpvpaper MpvpaperOptions `json:"MpvPaper"`
 }
 
 type WallpaperAndMonitor struct {

@@ -43,13 +43,13 @@ func GetImageColor(wAndM WallpaperAndMonitor) RGBA {
 	tempFileName := fmt.Sprintf("%v/%v_temp.jpg", tempFolder, fileName[len(fileName)-1])
 	awwwCmd := exec.Command("ffmpeg", "-i", wAndM.Path, "-vf", "scale=100:-1", tempFileName)
 	mpvPaperCmd := exec.Command("ffmpeg", "-ss", "00:00:01.00", "-i", wAndM.Path, "-vf", "scale=100:-1", "-vframes", "1", tempFileName)
-	var ffmpegToExectute *exec.Cmd
-	if wAndM.Changer.Awww != nil {
-		ffmpegToExectute = awwwCmd
+	var ffmpegToExecute *exec.Cmd
+	if wAndM.Changer.Awww.ResizeMode != "" {
+		ffmpegToExecute = awwwCmd
 	} else {
-		ffmpegToExectute = mpvPaperCmd
+		ffmpegToExecute = mpvPaperCmd
 	}
-	_, err := ffmpegToExectute.Output()
+	_, err := ffmpegToExecute.Output()
 
 	if err != nil {
 		panic(err)
